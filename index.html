@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoPulse — Real-Time Data Structures & Algorithms Suite</title>
+    <!-- Modern Stylesheet -->
+    <link rel="stylesheet" href="./css/modern_theme.css">
+    <style>
+        .hero-banner {
+            padding: 8rem 1.5rem 4rem 1.5rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.9rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 50px;
+            font-size: 0.775rem;
+            font-weight: 700;
+            color: #818cf8;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .hero-headline {
+            font-size: 3.75rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-headline span {
+            background: var(--grad-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+        }
+
+        .bento-section {
+            padding: 3rem 1.5rem 5rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .bento-card-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .bento-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 640px) {
+            .hero-headline { font-size: 2.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SVG Gradient Definitions -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+        <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#3b82f6" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- AlgoPulse Minimalist Navigation Dock -->
+    <div class="dsa-dock-wrapper">
+        <nav class="dsa-dock">
+            <a href="./index.html" class="dsa-dock-brand">
+                <svg class="logo-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                    <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                </svg>
+                <span>AlgoPulse</span>
+            </a>
+            <ul class="dsa-dock-links">
+                <li><a href="./index.html" class="dsa-dock-link active">Hub</a></li>
+                <li><a href="./Sorting-Visualizer-Project/sort.html" class="dsa-dock-link">Sorting</a></li>
+                <li><a href="./Linked-List-Visualization-master/index.html" class="dsa-dock-link">Linked List</a></li>
+                <li><a href="./Binary-Tree-Visualization-master/index.html" class="dsa-dock-link">Binary Tree</a></li>
+                <li><a href="./visualising-stack-implementation-master/index.html" class="dsa-dock-link">Stack</a></li>
+                <li><a href="./Pathfinding-Visualiser-Project-master/index.html" class="dsa-dock-link">Binary Search</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-banner">
+        <div class="hero-tag">Real-Time Execution Suite</div>
+        <h1 class="hero-headline">Precision Algorithm <span>Visualization</span></h1>
+        <p class="hero-sub">
+            An interactive execution engine designed to model pointer transformations, array partitioning, hierarchical tree traversals, and logarithmic search bounds.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="./Sorting-Visualizer-Project/sort.html" class="btn-neo">Launch Sorting Suite</a>
+            <a href="./Binary-Tree-Visualization-master/index.html" class="btn-neo btn-neo-secondary">Explore Binary Trees</a>
+        </div>
+    </section>
+
+    <!-- Bento Grid Showcase -->
+    <section class="bento-section">
+        <div style="max-width: 1200px; margin: 0 auto 2rem auto;">
+            <h2 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.35rem;">Interactive Workspaces</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Select a workspace module to execute step-by-step memory algorithms</p>
+        </div>
+
+        <div class="bento-grid">
+
+            <!-- Card 1: Sorting Algorithms (Span 8) -->
+            <a href="./Sorting-Visualizer-Project/sort.html" class="bento-card bento-span-8">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <span class="badge-complexity emerald">O(n log n) Best / Avg</span>
+                        <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">MODULE 01</span>
+                    </div>
+                    <h3 class="bento-card-title">Sorting Algorithms</h3>
+                    <p class="bento-card-desc">
+                        Simulate Bubble, Insertion, Heap, Merge, and Quick Sort algorithms. Compare vertical bar-height arrays or edit custom numerical input elements.
+                    </p>
+                </div>
+                <div class="terminal-box" style="margin-bottom: 1rem;">
+                    <span class="terminal-prompt">EXEC:</span> quickSort(array, low, high) <span style="color: var(--text-muted);">// Pivot partitioning & swap phase</span>
+                </div>
+                <div class="bento-card-footer">
+                    <span style="font-size: 0.8rem; color: #818cf8; font-weight: 600;">5 Algorithms</span>
+                    <span class="btn-neo btn-neo-secondary" style="font-size: 0.775rem; padding: 0.4rem 0.85rem;">Open Workspace &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 2: Binary Search (Span 4) -->
+            <a href="./Pathfinding-Visualiser-Project-master/index.html" class="bento-card bento-span-4">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <span class="badge-complexity">O(log n) Time</span>
+                        <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">MODULE 02</span>
+                    </div>
+                    <h3 class="bento-card-title">Binary Search</h3>
+                    <p class="bento-card-desc">
+                        Logarithmic search evaluator. Continuously bisects search boundaries to locate target elements in sorted arrays.
+                    </p>
+                </div>
+                <div class="bento-card-footer">
+                    <span style="font-size: 0.8rem; color: #818cf8; font-weight: 600;">Divide & Conquer</span>
+                    <span class="btn-neo btn-neo-secondary" style="font-size: 0.775rem; padding: 0.4rem 0.85rem;">Open Workspace &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 3: Linked List (Span 4) -->
+            <a href="./Linked-List-Visualization-master/index.html" class="bento-card bento-span-4">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <span class="badge-complexity blue">O(1) Insertion</span>
+                        <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">MODULE 03</span>
+                    </div>
+                    <h3 class="bento-card-title">Linked List</h3>
+                    <p class="bento-card-desc">
+                        Linear node structure visualizer. Observe dynamic node allocation, pointer updates, and removals in real time.
+                    </p>
+                </div>
+                <div class="bento-card-footer">
+                    <span style="font-size: 0.8rem; color: #60a5fa; font-weight: 600;">Pointer Traversal</span>
+                    <span class="btn-neo btn-neo-secondary" style="font-size: 0.775rem; padding: 0.4rem 0.85rem;">Open Workspace &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 4: Binary Tree & BST (Span 4) -->
+            <a href="./Binary-Tree-Visualization-master/index.html" class="bento-card bento-span-4">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <span class="badge-complexity">O(h) Height</span>
+                        <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">MODULE 04</span>
+                    </div>
+                    <h3 class="bento-card-title">Binary Tree & BST</h3>
+                    <p class="bento-card-desc">
+                        Render hierarchical tree structures on an SVG canvas powered by D3.js. Supports array construction & node search paths.
+                    </p>
+                </div>
+                <div class="bento-card-footer">
+                    <span style="font-size: 0.8rem; color: #818cf8; font-weight: 600;">D3.js Tree Canvas</span>
+                    <span class="btn-neo btn-neo-secondary" style="font-size: 0.775rem; padding: 0.4rem 0.85rem;">Open Workspace &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 5: Stack (Span 4) -->
+            <a href="./visualising-stack-implementation-master/index.html" class="bento-card bento-span-4">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <span class="badge-complexity emerald">LIFO Array</span>
+                        <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">MODULE 05</span>
+                    </div>
+                    <h3 class="bento-card-title">Stack Operations</h3>
+                    <p class="bento-card-desc">
+                        Array-based Last-In-First-Out memory structure. Execute Push, Pop, Peek with a live tracking dashboard.
+                    </p>
+                </div>
+                <div class="bento-card-footer">
+                    <span style="font-size: 0.8rem; color: #34d399; font-weight: 600;">State Dashboard</span>
+                    <span class="btn-neo btn-neo-secondary" style="font-size: 0.775rem; padding: 0.4rem 0.85rem;">Open Workspace &rarr;</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Detailed Algorithm Specification Matrix Section -->
+    <section class="spec-section">
+        <div style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.35rem;">Technical Specifications Matrix</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Select a module to inspect algorithmic complexity bounds and memory mechanics</p>
+        </div>
+
+        <div class="spec-tabs">
+            <button class="spec-tab active" onclick="switchSpec('sort')">Sorting Algorithms</button>
+            <button class="spec-tab" onclick="switchSpec('binary-search')">Binary Search</button>
+            <button class="spec-tab" onclick="switchSpec('linked-list')">Linked List</button>
+            <button class="spec-tab" onclick="switchSpec('binary-tree')">Binary Tree & BST</button>
+            <button class="spec-tab" onclick="switchSpec('stack')">Stack Operations</button>
+        </div>
+
+        <div class="spec-content-card" id="spec-display">
+            <!-- Content updated dynamically by JS -->
+        </div>
+    </section>
+
+    <!-- Comprehensive Professional Multi-Column Footer -->
+    <footer class="algopulse-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-brand-title">
+                    <svg class="logo-svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 3" />
+                        <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                    </svg>
+                    <span>AlgoPulse</span>
+                </div>
+                <p class="footer-brand-desc">
+                    An interactive execution environment designed for deep-dive visual analysis of data structures, algorithm complexities, and memory state transformations.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Workspaces</h4>
+                <ul class="footer-links">
+                    <li><a href="./Sorting-Visualizer-Project/sort.html">Sorting Visualizer</a></li>
+                    <li><a href="./Pathfinding-Visualiser-Project-master/index.html">Binary Search</a></li>
+                    <li><a href="./Linked-List-Visualization-master/index.html">Linked List</a></li>
+                    <li><a href="./Binary-Tree-Visualization-master/index.html">Binary Tree & BST</a></li>
+                    <li><a href="./visualising-stack-implementation-master/index.html">Stack Operations</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Complexity Reference</h4>
+                <ul class="footer-links">
+                    <li><a href="#">O(1) Constant Time</a></li>
+                    <li><a href="#">O(log n) Logarithmic</a></li>
+                    <li><a href="#">O(n) Linear Search</a></li>
+                    <li><a href="#">O(n log n) Linearithmic</a></li>
+                    <li><a href="#">O(n²) Quadratic Time</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Architecture</h4>
+                <ul class="footer-links">
+                    <li><a href="#">HTML5 Canvas Engine</a></li>
+                    <li><a href="#">D3.js Tree Layout API</a></li>
+                    <li><a href="#">Vanilla JS DOM Timers</a></li>
+                    <li><a href="#">WebAPI Async Event Loop</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 AlgoPulse Suite. All rights reserved.</span>
+            <span>Built with HTML5, CSS3, and JavaScript.</span>
+        </div>
+    </footer>
+
+    <!-- Background Canvas Script & Tab Matrix Handler -->
+    <script src="./js/hero_canvas.js"></script>
+    <script>
+        const specs = {
+            'sort': {
+                title: 'Sorting Algorithms (Quick, Merge, Heap, Insertion, Bubble)',
+                best: 'O(n log n) [Quick / Merge]',
+                avg: 'O(n log n)',
+                worst: 'O(n²) [Bubble / Quick Worst]',
+                space: 'O(1) to O(n)',
+                mechanics: 'Manipulates element positions through comparison operators and array partitioning. Quick Sort selects pivots while Merge Sort recursively divides arrays.',
+                applications: 'Database query ordering, search index generation, graphics rendering pipelines.'
+            },
+            'binary-search': {
+                title: 'Binary Search Engine',
+                best: 'O(1) [Mid Target]',
+                avg: 'O(log n)',
+                worst: 'O(log n)',
+                space: 'O(1) Iterative',
+                mechanics: 'Evaluates the middle element of a sorted array. Eliminates half of the search range in each step until target index is isolated.',
+                applications: 'Database indexing (B-Trees), auto-complete systems, binary boundary searches in compilers.'
+            },
+            'linked-list': {
+                title: 'Singly Linked List Memory Structure',
+                best: 'O(1) Head Insert/Delete',
+                avg: 'O(n) Arbitrary Index',
+                worst: 'O(n) Search',
+                space: 'O(n) Dynamic Nodes',
+                mechanics: 'Linear collection of data nodes linked via memory pointers. Insertion and deletion do not require array re-allocation.',
+                applications: 'Dynamic memory allocation, browser history stacks, execution undo/redo buffers.'
+            },
+            'binary-tree': {
+                title: 'Binary Search Tree (BST) & D3 Renderer',
+                best: 'O(1) Root Search',
+                avg: 'O(log n) Balanced',
+                worst: 'O(n) Degenerate Tree',
+                space: 'O(n) Tree Nodes',
+                mechanics: 'Hierarchical node tree where left child values are less than root and right child values are greater. Rendered dynamically via D3.js layout nodes.',
+                applications: 'Abstract Syntax Trees (ASTs) in compilers, spatial partitioning (KD-Trees), decision trees.'
+            },
+            'stack': {
+                title: 'Array-Based Stack (LIFO Tower)',
+                best: 'O(1) Push / Pop / Peek',
+                avg: 'O(1)',
+                worst: 'O(1)',
+                space: 'O(n) Max Limit',
+                mechanics: 'Last-In-First-Out linear structure controlled by a top pointer (TOP). Enforces strict boundary checks for Overflow and Underflow.',
+                applications: 'Call stack execution in runtimes, expression parsing, depth-first search (DFS) algorithms.'
+            }
+        };
+
+        function switchSpec(key) {
+            document.querySelectorAll('.spec-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderSpec(key);
+        }
+
+        function renderSpec(key) {
+            const item = specs[key];
+            document.getElementById('spec-display').innerHTML = `
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main);">${item.title}</h3>
+                <div class="spec-grid">
+                    <div class="spec-box">
+                        <div class="spec-box-label">Best Time</div>
+                        <div class="spec-box-value">${item.best}</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-box-label">Average Time</div>
+                        <div class="spec-box-value">${item.avg}</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-box-label">Worst Time</div>
+                        <div class="spec-box-value">${item.worst}</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-box-label">Auxiliary Space</div>
+                        <div class="spec-box-value">${item.space}</div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Core Execution Mechanics:</span>
+                        <p style="font-size: 0.925rem; color: var(--text-main); margin-top: 0.25rem;">${item.mechanics}</p>
+                    </div>
+                    <div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Practical Use Cases:</span>
+                        <p style="font-size: 0.925rem; color: var(--text-muted); margin-top: 0.25rem;">${item.applications}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize default spec
+        renderSpec('sort');
+    </script>
+</body>
+</html>
