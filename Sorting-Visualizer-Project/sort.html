@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Workspace — AlgoPulse</title>
+    <link rel="stylesheet" href="../css/modern_theme.css">
+    <link rel="stylesheet" href="./css/sort_style.css">
+</head>
+<body>
+    
+    <!-- SVG Gradient Definition -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+        <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#3b82f6" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Floating Navigation Navbar -->
+    <div class="dsa-dock-wrapper">
+        <nav class="dsa-dock">
+            <a href="../index.html" class="dsa-dock-brand">
+                <svg class="logo-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                    <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                </svg>
+                <span>AlgoPulse</span>
+            </a>
+            <ul class="dsa-dock-links">
+                <li><a href="../index.html" class="dsa-dock-link">Hub</a></li>
+                <li><a href="./sort.html" class="dsa-dock-link active">Sorting</a></li>
+                <li><a href="../Linked-List-Visualization-master/index.html" class="dsa-dock-link">Linked List</a></li>
+                <li><a href="../Binary-Tree-Visualization-master/index.html" class="dsa-dock-link">Binary Tree</a></li>
+                <li><a href="../visualising-stack-implementation-master/index.html" class="dsa-dock-link">Stack</a></li>
+                <li><a href="../Pathfinding-Visualiser-Project-master/index.html" class="dsa-dock-link">Binary Search</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Page Banner -->
+    <div class="sorting-header-banner" style="padding-top: 6rem;">
+        <h2>Sorting Algorithm Workspace</h2>
+        <p>Dynamic bar-chart array partitioning and user-defined numerical box sorting.</p>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="sorting-main-wrapper">
+
+        <!-- BAR VISUALIZER SECTION -->
+        <div class="visualizer-section bento-card">
+            <div class="section-badge">
+                <span class="badge-complexity emerald">BAR ARRAY VISUALIZER</span>
+                <span style="font-size: 0.775rem; color: var(--text-dim); font-weight: 600;">REAL-TIME EXECUTION</span>
+            </div>
+            
+            <div class="bars_container_wrapper">
+                <div class="bars_container" id="bars_container"></div>
+            </div>
+
+            <!-- Terminal Status Ticker -->
+            <div class="terminal-box">
+                <span class="terminal-prompt">LOG:</span> <span id="sort-status-log">Select an algorithm and click Start Sort to begin...</span>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label class="control-label">Array Size</label>
+                    <input type="range" min="10" max="100" id="range" class="range-modern" step="5" value="50">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Delay Speed (ms)</label>
+                    <input type="range" min="2" max="500" id="speed" class="range-modern" value="50">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Algorithm</label>
+                    <select class="select-modern" id="sorting_algos">  
+                        <option value="none" selected disabled hidden>Select Algorithm</option>
+                        <option value="bubble">Bubble Sort</option>
+                        <option value="insertion">Insertion Sort</option>
+                        <option value="heap">Heap Sort</option>
+                        <option value="merge">Merge Sort</option>
+                        <option value="quick">Quick Sort</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="randomize_array_btn" class="btn-neo btn-neo-secondary">Randomize</button>
+                    <button id="sort_btn" class="btn-neo">Start Sort</button>
+                    <button id="home" class="btn-neo btn-neo-secondary" style="display:none;">Home</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOX VISUALIZER SECTION -->
+        <div class="visualizer-section bento-card">
+            <div class="section-badge">
+                <span class="badge-complexity">CUSTOM NUMERICAL BOX ARRAY</span>
+            </div>
+
+            <div class="user-custom-input-bar">
+                <input type="text" class="input-modern userArray" id="arrayBox" placeholder="Custom numbers e.g. 42, 18, 95, 7, 33"> 
+                <button id="createArray" class="btn-neo">Build Array</button>
+            </div>
+
+            <div class="contain1">
+                <div class="box_container" id="box_container"></div>
+            </div>
+
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label class="control-label">Array Size</label>
+                    <input type="range" min="4" max="15" id="rangeBox" class="range-modern" step="1" value="5">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Delay Speed (ms)</label>
+                    <input type="range" min="100" max="2000" id="speedBox" class="range-modern" value="800">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Algorithm</label>
+                    <select class="select-modern" id="sorting_algos_box">  
+                        <option value="none" selected disabled hidden>Select Algorithm</option>
+                        <option value="bubbleBox">Bubble Sort</option>
+                        <option value="insertionBox">Insertion Sort</option>
+                        <option value="heapBox">Heap Sort</option>
+                        <option value="mergeBox">Merge Sort</option>
+                        <option value="quickBox">Quick Sort</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="randomize_array_btn_box" class="btn-neo btn-neo-secondary">Randomize</button>
+                    <button id="sort_btn_box" class="btn-neo">Start Sort</button>
+                    <button id="home1" class="btn-neo btn-neo-secondary" style="display:none;">Home</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Multi-Column Footer -->
+    <footer class="algopulse-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-brand-title">
+                    <svg class="logo-svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 3" />
+                        <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                    </svg>
+                    <span>AlgoPulse</span>
+                </div>
+                <p class="footer-brand-desc">
+                    An interactive execution environment designed for deep-dive visual analysis of data structures, algorithm complexities, and memory state transformations.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Workspaces</h4>
+                <ul class="footer-links">
+                    <li><a href="./sort.html">Sorting Visualizer</a></li>
+                    <li><a href="../Pathfinding-Visualiser-Project-master/index.html">Binary Search</a></li>
+                    <li><a href="../Linked-List-Visualization-master/index.html">Linked List</a></li>
+                    <li><a href="../Binary-Tree-Visualization-master/index.html">Binary Tree & BST</a></li>
+                    <li><a href="../visualising-stack-implementation-master/index.html">Stack Operations</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Complexity Reference</h4>
+                <ul class="footer-links">
+                    <li><a href="#">O(1) Constant Time</a></li>
+                    <li><a href="#">O(log n) Logarithmic</a></li>
+                    <li><a href="#">O(n) Linear Search</a></li>
+                    <li><a href="#">O(n log n) Linearithmic</a></li>
+                    <li><a href="#">O(n²) Quadratic Time</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Architecture</h4>
+                <ul class="footer-links">
+                    <li><a href="#">HTML5 Canvas Engine</a></li>
+                    <li><a href="#">D3.js Tree Layout API</a></li>
+                    <li><a href="#">Vanilla JS DOM Timers</a></li>
+                    <li><a href="#">WebAPI Async Event Loop</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 AlgoPulse Suite. All rights reserved.</span>
+            <span>Built with HTML5, CSS3, and JavaScript.</span>
+        </div>
+    </footer>
+
+    <script src="./js/sort_script.js"></script>
+    <script src="./js/sort_script2.js"></script>
+</body>
+</html>
