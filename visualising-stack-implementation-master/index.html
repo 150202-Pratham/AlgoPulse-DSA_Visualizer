@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Workspace — AlgoPulse</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet" />
+
+    <!-- Global Theme & Local Styles -->
+    <link rel="stylesheet" href="../css/modern_theme.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+      body {
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+      }
+
+      .stack-header-banner {
+        text-align: center;
+        padding: 6rem 1rem 0.5rem 1rem;
+      }
+
+      .stack-header-banner h2 {
+        font-size: 2.15rem;
+        font-weight: 800;
+        background: var(--grad-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.25rem;
+      }
+
+      .stack-header-banner p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .stack-main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem 4rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .stack-grid-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (max-width: 992px) {
+        .stack-grid-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      #canvas.box, #code.box {
+        margin: 0 !important;
+        background: var(--bg-card) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid var(--border-light) !important;
+        border-radius: var(--radius-lg) !important;
+        padding: 1.5rem !important;
+        width: 100% !important;
+      }
+
+      #moveable {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        background: rgba(13, 17, 23, 0.8) !important;
+        border: 1px solid var(--border-light) !important;
+        border-radius: var(--radius-md) !important;
+        padding: 1.15rem !important;
+      }
+
+      #handle {
+        background: var(--grad-primary) !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.45rem !important;
+        text-align: center !important;
+      }
+
+      .dragcontent {
+        font-size: 0.775rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: #ffffff !important;
+        letter-spacing: 0.04em !important;
+      }
+
+      .inputs input[type="text"] {
+        font-family: var(--font-ui) !important;
+        padding: 0.6rem 0.9rem !important;
+        background: rgba(13, 17, 23, 0.9) !important;
+        border: 1px solid var(--border-light) !important;
+        border-radius: var(--radius-sm) !important;
+        color: var(--text-main) !important;
+        outline: none !important;
+        width: 100% !important;
+      }
+
+      .inputs input[type="button"], .inputs input[type="submit"] {
+        font-family: var(--font-ui) !important;
+        font-weight: 600 !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.55rem 0.9rem !important;
+        cursor: pointer !important;
+        border: none !important;
+        font-size: 0.85rem !important;
+      }
+
+      .btn-green {
+        background: var(--grad-primary) !important;
+        color: white !important;
+      }
+
+      .btn-red {
+        background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%) !important;
+        color: white !important;
+      }
+
+      .btn-yellow {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+        color: white !important;
+      }
+
+      .btn-blue {
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+        color: white !important;
+      }
+
+      #step-tracker {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.85rem !important;
+      }
+
+      .step-box {
+        background: rgba(13, 17, 23, 0.8) !important;
+        border: 1px solid var(--border-light) !important;
+        border-radius: var(--radius-md) !important;
+        padding: 0.85rem !important;
+        text-align: center !important;
+      }
+
+      .box-title {
+        font-size: 0.725rem !important;
+        color: var(--text-muted) !important;
+        text-transform: uppercase !important;
+      }
+
+      .box-value {
+        font-family: var(--font-code) !important;
+        font-size: 1.6rem !important;
+        font-weight: 700 !important;
+        color: #818cf8 !important;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- SVG Gradient Definition -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+        <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#3b82f6" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Minimalist Floating Navigation Navbar -->
+    <div class="dsa-dock-wrapper">
+      <nav class="dsa-dock">
+        <a href="../index.html" class="dsa-dock-brand">
+          <svg class="logo-svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 3" />
+            <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+          </svg>
+          <span>AlgoPulse</span>
+        </a>
+        <ul class="dsa-dock-links">
+          <li><a href="../index.html" class="dsa-dock-link">Hub</a></li>
+          <li><a href="../Sorting-Visualizer-Project/sort.html" class="dsa-dock-link">Sorting</a></li>
+          <li><a href="../Linked-List-Visualization-master/index.html" class="dsa-dock-link">Linked List</a></li>
+          <li><a href="../Binary-Tree-Visualization-master/index.html" class="dsa-dock-link">Binary Tree</a></li>
+          <li><a href="./index.html" class="dsa-dock-link active">Stack</a></li>
+          <li><a href="../Pathfinding-Visualiser-Project-master/index.html" class="dsa-dock-link">Binary Search</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Header Banner -->
+    <div class="stack-header-banner">
+      <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+        <button id="launch" class="btn-neo btn-neo-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">View Instructions</button>
+      </div>
+      <h2>Stack LIFO Memory Operations</h2>
+      <p>Simulate Push, Pop, Peek, and Pointer mutations on fixed-size memory arrays.</p>
+    </div>
+
+    <!-- Instructions Popup -->
+    <div id="popup">
+      <span class="close">&times;</span>
+      <h2 style="margin-bottom: 1rem; color: var(--text-main);">Array Stack Architecture</h2>
+      <p class="code-line" style="text-align: justify; font-size: 14px; line-height: 22px; color: var(--text-muted); margin-bottom: 1.25rem;">
+        In array implementation, stack items are stored sequentially. All operations modify the stack pointer <code>TOP</code>.
+      </p>
+      <ul id="instructions" style="color: var(--text-main); margin-bottom: 1.25rem;">
+        <li class="list-items"><strong>Push:</strong> Add an element to the stack top.</li>
+        <li class="list-items"><strong>Pop:</strong> Remove the top-most element.</li>
+        <li class="list-items"><strong>Peek:</strong> Inspect the top value without removing.</li>
+      </ul>
+    </div>
+
+    <!-- Question Quiz Modals -->
+    <div class="question-modal" id="pushmodal">
+      <div id="modal-head">
+        <h3 style="text-align: left; color: #fff; margin-top: 0px;">Test Your Knowledge: Push()</h3>          
+        <span class="close-push close-btn">&times;</span>
+      </div>
+      <div id="modal-content">
+        <div id="question">If anyone tries to insert an element on a stack whose all places are occupied, what will happen?</div>
+        <div id="answer">
+          <div id="ans-left">
+            <div id="option-a" class="option">Push</div>
+            <div id="option-c" class="option">Pop</div>
+          </div>
+          <div id="ans-right">
+            <div id="option-b" class="option">Underflow</div>
+            <div id="option-d" class="option">Overflow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-modal" id="popmodal">
+      <div id="modal-head">
+        <h3 style="text-align: left; color: #fff; margin-top: 0px;">Test Your Knowledge: Pop()</h3>          
+        <span class="close-pop close-btn">&times;</span>
+      </div>
+      <div id="modal-content">
+        <div id="question">What will happen if someone tries to remove an element from a stack that has no element in it?</div>
+        <div id="answer">
+          <div id="ans-left">
+            <div id="pop-a" class="option">Overflow</div>
+            <div id="pop-c" class="option">Pop</div>
+          </div>
+          <div id="ans-right">
+            <div id="pop-b" class="option">Underflow</div>
+            <div id="pop-d" class="option">Push</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-modal" id="emptymodal">
+      <div id="modal-head">
+        <h3 style="text-align: left; color: #fff; margin-top: 0px;">Test Your Knowledge: IsEmpty()</h3>          
+        <span class="close-empty close-btn">&times;</span>
+      </div>
+      <div id="modal-content">
+        <div id="question">What is the role of the IsEmpty() function in Stack?</div>
+        <div id="answer">
+          <div id="ans-left">
+            <div id="empty-a" class="option">Underflow Check</div>
+            <div id="empty-c" class="option">Overflow Check</div>
+          </div>
+          <div id="ans-right">
+            <div id="empty-b" class="option">Space Available</div>
+            <div id="empty-d" class="option">To Pop Stack</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <div class="stack-main-container">
+      <div class="stack-grid-layout">
+        
+        <!-- Canvas Visualizer Section -->
+        <div id="canvas" class="box bento-card">
+          <h3 style="text-align: left; color: var(--text-main); font-size: 1.1rem; margin-bottom: 1rem;">Memory Canvas Surface</h3>
+
+          <div id="canvas-wrapper">
+            <div id="target">
+              <div id="array-wrapper">
+                <div id="array"></div>
+              </div>
+              <span style="display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin: 10px 0; text-align: center;">Memory Array</span>
+              <div id="lowerbound">
+                <div id="stack-wrapper">
+                  <div id="stack"></div>
+                  <span style="display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin: 10px 0; text-align: center;">Stack Tower (LIFO)</span>
+                </div>
+
+                <!-- Terminal Step Console -->
+                <div id="algo-box" class="terminal-box" style="margin-top: 1rem;">
+                  <li id="current_algo" class="algo-steps" style="list-style: none;">
+                    <span class="terminal-prompt">EXEC:</span> INIT_STACK (STACK, TOP) <br /><br />
+                    Algorithm to initialize a stack using array.<br />
+                    TOP points to the top-most element of stack.<br /><br />
+                    1) TOP: = 0; 2) Exit
+                  </li> 
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls & Dashboard Side Panel -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          
+          <div id="moveable">
+            <div id="handle">
+              <span class="dragcontent">
+                Control Panel (Drag Me)
+              </span>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); padding: 8px 0; font-size: 0.8rem; font-weight: 600;">Perform Operations</p>
+            
+            <div class="inputs" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div class="form-row">
+                <input type="text" id="push-item" name="push-item" placeholder="Enter Value (e.g. 42)" required />
+              </div>
+          
+              <div class="form-row" style="display: flex; gap: 0.5rem;">
+                <input type="submit" name="push-btn" value="Push" onclick="push()" class="btn btn-green push-btn" style="flex: 1;" />
+                <input type="button" id="pop-item" name="pop-item" value="Pop" onclick="pop()" class="btn btn-red pop-btn" style="flex: 1;" />
+              </div>
+          
+              <div class="form-row" style="display: flex; gap: 0.5rem;">
+                <input type="button" name="ispeak" value="Peek Top" onclick="ispeak()" class="btn btn-yellow" style="flex: 1;" />
+                <input type="button" name="isempty" value="IsEmpty?" onclick="isempty()" class="btn btn-blue" style="flex: 1;" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step Tracker Events KPI Dashboard -->
+          <div id="code" class="box bento-card">
+            <h3 style="color: var(--text-main); font-size: 1rem; margin-bottom: 0.85rem;">Live State KPI Dashboard</h3>
+            <div id="step-tracker">
+              <div id="start-step" class="step-box">
+                <h4 class="box-title">Pushed</h4>
+                <h1 class="box-value" id="pushed">-</h1>
+              </div>
+
+              <div id="last-step" class="step-box">
+                <h4 class="box-title">Popped</h4>
+                <h1 class="box-value" id="popped">-</h1>
+              </div>
+
+              <div id="mid-step" class="step-box">
+                <h4 class="box-title">Pointer (TOP)</h4>
+                <h1 class="box-value" id="pointer">-1</h1>
+              </div>
+
+              <div id="blue-box" class="step-box">
+                <h4 class="box-title">Top Element</h4>
+                <h1 class="box-value" id="top_element">-</h1>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Multi-Column Professional Footer -->
+    <footer class="algopulse-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-brand-title">
+                    <svg class="logo-svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 3" />
+                        <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                    </svg>
+                    <span>AlgoPulse</span>
+                </div>
+                <p class="footer-brand-desc">
+                    An interactive execution environment designed for deep-dive visual analysis of data structures, algorithm complexities, and memory state transformations.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Workspaces</h4>
+                <ul class="footer-links">
+                    <li><a href="../Sorting-Visualizer-Project/sort.html">Sorting Visualizer</a></li>
+                    <li><a href="../Pathfinding-Visualiser-Project-master/index.html">Binary Search</a></li>
+                    <li><a href="../Linked-List-Visualization-master/index.html">Linked List</a></li>
+                    <li><a href="../Binary-Tree-Visualization-master/index.html">Binary Tree & BST</a></li>
+                    <li><a href="./index.html">Stack Operations</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Complexity Reference</h4>
+                <ul class="footer-links">
+                    <li><a href="#">O(1) Constant Time</a></li>
+                    <li><a href="#">O(log n) Logarithmic</a></li>
+                    <li><a href="#">O(n) Linear Search</a></li>
+                    <li><a href="#">O(n log n) Linearithmic</a></li>
+                    <li><a href="#">O(n²) Quadratic Time</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Architecture</h4>
+                <ul class="footer-links">
+                    <li><a href="#">HTML5 Canvas Engine</a></li>
+                    <li><a href="#">D3.js Tree Layout API</a></li>
+                    <li><a href="#">Vanilla JS DOM Timers</a></li>
+                    <li><a href="#">WebAPI Async Event Loop</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 AlgoPulse Suite. All rights reserved.</span>
+            <span>Built with HTML5, CSS3, and JavaScript.</span>
+        </div>
+    </footer>
+
+  </body>
+</html>
