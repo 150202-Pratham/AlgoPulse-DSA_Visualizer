@@ -1,0 +1,119 @@
+/* ==========================================================================
+   STACK VISUALIZER STYLESHEET OVERRIDES
+   ========================================================================== */
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 650px;
+  z-index: 2000;
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 2.5rem !important;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8) !important;
+}
+
+.question-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 550px;
+  z-index: 2000;
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 2rem !important;
+  box-shadow: 0 0 50px rgba(99, 102, 241, 0.4) !important;
+}
+
+#question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 1.25rem 0;
+  line-height: 1.5;
+}
+
+#answer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.option {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.option:hover {
+  background: var(--grad-primary);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+}
+
+/* Stack array canvas */
+#array, #stack {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
+  padding: 0.75rem;
+  background: rgba(7, 9, 14, 0.6);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+#stack {
+  flex-direction: column-reverse;
+  min-height: 250px;
+  width: 140px;
+  margin: 0 auto;
+}
+
+.stack-item, div[id^="r"] {
+  min-width: 50px;
+  height: 45px;
+  padding: 0 0.75rem;
+  background: var(--grad-primary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--radius-sm) !important;
+  color: white !important;
+  font-family: var(--font-code) !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+.close-btn:hover {
+  color: var(--danger);
+}
