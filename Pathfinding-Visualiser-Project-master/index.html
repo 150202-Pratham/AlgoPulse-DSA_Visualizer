@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Search Workspace — AlgoPulse</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Global Theme Stylesheet -->
+  <link rel="stylesheet" href="../css/modern_theme.css">
+
+  <style>
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .bs-header-banner {
+      text-align: center;
+      padding: 6rem 1rem 1rem 1rem;
+    }
+
+    .bs-header-banner h2 {
+      font-size: 2.15rem;
+      font-weight: 800;
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.25rem;
+    }
+
+    .bs-header-banner p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .bs-main-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .input-card {
+      padding: 1.75rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .input-group-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 750px;
+    }
+
+    .input-group-row input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .array-surface {
+      min-height: 200px;
+      padding: 2.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      background: rgba(13, 17, 23, 0.9);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .array-node-box {
+      width: 65px;
+      height: 65px;
+      border-radius: var(--radius-md);
+      background: rgba(22, 27, 34, 0.9);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      font-family: var(--font-code);
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .array-node-box .index-badge {
+      position: absolute;
+      top: -11px;
+      font-size: 0.675rem;
+      font-weight: 600;
+      padding: 0.1rem 0.4rem;
+      border-radius: 50px;
+      background: rgba(13, 17, 23, 0.95);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+
+    .array-node-box.highlight {
+      background: var(--grad-primary) !important;
+      border-color: #6366f1 !important;
+      color: #ffffff !important;
+      transform: scale(1.12);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+    }
+
+    .array-node-box.found {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      border-color: #10b981 !important;
+      color: #ffffff !important;
+      transform: scale(1.15);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .array-node-box.discard {
+      background: rgba(225, 29, 72, 0.08) !important;
+      border-color: rgba(225, 29, 72, 0.2) !important;
+      color: var(--text-dim) !important;
+      opacity: 0.35;
+      transform: scale(0.92);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(16px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 2.25rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      color: var(--text-main);
+      box-shadow: var(--shadow-subtle);
+      animation: pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 420px;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Gradient Definition -->
+  <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+      <defs>
+          <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#818cf8" />
+              <stop offset="100%" stop-color="#3b82f6" />
+          </linearGradient>
+      </defs>
+  </svg>
+
+  <!-- Minimalist Floating Navigation Navbar -->
+  <div class="dsa-dock-wrapper">
+    <nav class="dsa-dock">
+      <a href="../index.html" class="dsa-dock-brand">
+        <svg class="logo-svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 3" />
+          <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+        </svg>
+        <span>AlgoPulse</span>
+      </a>
+      <ul class="dsa-dock-links">
+        <li><a href="../index.html" class="dsa-dock-link">Hub</a></li>
+        <li><a href="../Sorting-Visualizer-Project/sort.html" class="dsa-dock-link">Sorting</a></li>
+        <li><a href="../Linked-List-Visualization-master/index.html" class="dsa-dock-link">Linked List</a></li>
+        <li><a href="../Binary-Tree-Visualization-master/index.html" class="dsa-dock-link">Binary Tree</a></li>
+        <li><a href="../visualising-stack-implementation-master/index.html" class="dsa-dock-link">Stack</a></li>
+        <li><a href="./index.html" class="dsa-dock-link active">Binary Search</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Banner -->
+  <div class="bs-header-banner">
+    <h2>Logarithmic Binary Search Engine</h2>
+    <p>Watch O(log n) divide-and-conquer searching on sorted arrays. Midpoint evaluation dynamically eliminates half of the remaining array bounds.</p>
+  </div>
+
+  <!-- Workspace -->
+  <div class="bs-main-wrapper">
+    
+    <div class="input-card bento-card">
+      <div class="input-group-row">
+        <input type="text" id="arrayInput" class="input-modern" placeholder="Sorted Array (e.g. 2, 5, 8, 12, 16, 23)" value="2, 5, 8, 12, 16, 23, 38, 45, 56">
+        <input type="number" id="target" class="input-modern" placeholder="Target Number" value="23">
+        <button onclick="startSearch()" class="btn-neo">Start Search</button>
+      </div>
+    </div>
+
+    <!-- Status Readout Console -->
+    <div class="terminal-box" style="text-align: center;">
+      <span class="terminal-prompt">STATUS:</span> <span id="status">Enter array & target then click Start Search</span>
+    </div>
+
+    <!-- Array Node Display Surface -->
+    <div class="array-surface" id="array"></div>
+
+  </div>
+
+  <!-- Modal Popup -->
+  <div class="modal" id="popupModal">
+    <div class="modal-content">
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.65rem; color: #34d399;" id="popupTitle">Target Found</h3>
+      <p id="popupText" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;"></p>
+      <button class="btn-neo" onclick="closePopup()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Multi-Column Professional Footer -->
+  <footer class="algopulse-footer">
+      <div class="footer-container">
+          <div class="footer-brand">
+              <div class="footer-brand-title">
+                  <svg class="logo-svg" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3 3" />
+                      <circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+                  </svg>
+                  <span>AlgoPulse</span>
+              </div>
+              <p class="footer-brand-desc">
+                  An interactive execution environment designed for deep-dive visual analysis of data structures, algorithm complexities, and memory state transformations.
+              </p>
+          </div>
+
+          <div>
+              <h4 class="footer-col-title">Workspaces</h4>
+              <ul class="footer-links">
+                  <li><a href="../Sorting-Visualizer-Project/sort.html">Sorting Visualizer</a></li>
+                  <li><a href="./index.html">Binary Search</a></li>
+                  <li><a href="../Linked-List-Visualization-master/index.html">Linked List</a></li>
+                  <li><a href="../Binary-Tree-Visualization-master/index.html">Binary Tree & BST</a></li>
+                  <li><a href="../visualising-stack-implementation-master/index.html">Stack Operations</a></li>
+              </ul>
+          </div>
+
+          <div>
+              <h4 class="footer-col-title">Complexity Reference</h4>
+              <ul class="footer-links">
+                  <li><a href="#">O(1) Constant Time</a></li>
+                  <li><a href="#">O(log n) Logarithmic</a></li>
+                  <li><a href="#">O(n) Linear Search</a></li>
+                  <li><a href="#">O(n log n) Linearithmic</a></li>
+                  <li><a href="#">O(n²) Quadratic Time</a></li>
+              </ul>
+          </div>
+
+          <div>
+              <h4 class="footer-col-title">Architecture</h4>
+              <ul class="footer-links">
+                  <li><a href="#">HTML5 Canvas Engine</a></li>
+                  <li><a href="#">D3.js Tree Layout API</a></li>
+                  <li><a href="#">Vanilla JS DOM Timers</a></li>
+                  <li><a href="#">WebAPI Async Event Loop</a></li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="footer-bottom">
+          <span>&copy; 2026 AlgoPulse Suite. All rights reserved.</span>
+          <span>Built with HTML5, CSS3, and JavaScript.</span>
+      </div>
+  </footer>
+
+  <script>
+    let arr = [];
+    let boxes = [];
+
+    function displayArray() {
+      let container = document.getElementById("array");
+      container.innerHTML = "";
+      boxes = [];
+      arr.forEach((num, idx) => {
+        let div = document.createElement("div");
+        div.classList.add("array-node-box");
+        div.innerHTML = `<span class="index-badge">#${idx}</span>${num}`;
+        container.appendChild(div);
+        boxes.push(div);
+      });
+    }
+
+    async function binarySearch(target) {
+      let left = 0, right = arr.length - 1;
+
+      while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        boxes[mid].classList.add("highlight");
+        document.getElementById("status").innerText = `Checking Mid Index #${mid} (Value: ${arr[mid]})`;
+        await new Promise(r => setTimeout(r, 1100));
+
+        if (arr[mid] === target) {
+          boxes[mid].classList.remove("highlight");
+          boxes[mid].classList.add("found");
+          document.getElementById("status").innerText = `Found Target ${target} at Index #${mid}`;
+          showCelebration(mid, target);
+          return;
+        } else if (arr[mid] < target) {
+          for (let i = left; i <= mid; i++) {
+            boxes[i].classList.add("discard");
+          }
+          left = mid + 1;
+        } else {
+          for (let i = mid; i <= right; i++) {
+            boxes[i].classList.add("discard");
+          }
+          right = mid - 1;
+        }
+        boxes[mid].classList.remove("highlight");
+        await new Promise(r => setTimeout(r, 600));
+      }
+
+      document.getElementById("status").innerText = `Target ${target} not found in array`;
+    }
+
+    function startSearch() {
+      let input = document.getElementById("arrayInput").value;
+      arr = input.split(",").map(val => parseInt(val.trim())).filter(val => !isNaN(val)).sort((a,b) => a-b);
+      let target = parseInt(document.getElementById("target").value);
+
+      if (arr.length === 0 || isNaN(target)) {
+        alert("Please enter a valid comma-separated array and target number.");
+        return;
+      }
+
+      displayArray();
+      binarySearch(target);
+    }
+
+    function showCelebration(mid, target) {
+      document.getElementById("popupText").innerText = `Successfully located target value ${target} at array index #${mid} using logarithmic search algorithm O(log n).`;
+      document.getElementById("popupModal").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popupModal").style.display = "none";
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      startSearch();
+    });
+  </script>
+</body>
+</html>
