@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Linked List Workspace — AlgoPulse</title>
+
+		<link rel="icon" href="img/pointer.png"/>
+		<link rel="stylesheet" href="vendor/css/normalize.css" />
+		<link rel="stylesheet" href="vendor/css/fontawesome.css" />
+
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet" />
+
+		<!-- Global Theme & Local Styles -->
+		<link rel="stylesheet" href="../css/modern_theme.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/responisve.css" />
+		<style>
+			body {
+				background-color: var(--bg-dark);
+				color: var(--text-main);
+			}
+
+			.ll-header-banner {
+				text-align: center;
+				padding: 6rem 1rem 0.5rem 1rem;
+			}
+
+			.ll-header-banner h2 {
+				font-size: 2.15rem;
+				font-weight: 800;
+				background: var(--grad-primary);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				margin-bottom: 0.25rem;
+			}
+
+			.ll-header-banner p {
+				color: var(--text-muted);
+				font-size: 0.95rem;
+			}
+
+			section.list {
+				min-height: 230px;
+				margin: 1.5rem auto;
+				max-width: 1200px;
+				background: rgba(13, 17, 23, 0.9);
+				border: 1px solid var(--border-light);
+				border-radius: var(--radius-lg);
+				padding: 2.5rem 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+				gap: 0.5rem;
+				box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+			}
+
+			div.node {
+				background: var(--grad-primary) !important;
+				border: 1px solid rgba(255,255,255,0.2);
+				box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+			}
+
+			div.node p.number {
+				font-family: var(--font-code) !important;
+				font-size: 1.35rem;
+			}
+
+			section.operations {
+				position: relative;
+				bottom: auto;
+				max-width: 1200px;
+				margin: 2rem auto;
+				padding: 0 1rem;
+			}
+
+			div.wrapper {
+				background: var(--bg-card);
+				backdrop-filter: blur(16px);
+				-webkit-backdrop-filter: blur(16px);
+				border: 1px solid var(--border-light);
+				border-radius: var(--radius-lg);
+				padding: 1.5rem;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+				gap: 1.25rem;
+			}
+
+			div.wrapper > div {
+				background: rgba(13, 17, 23, 0.6);
+				border: 1px solid var(--border-light);
+				border-radius: var(--radius-md);
+				padding: 1.15rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.65rem;
+			}
+
+			div.wrapper input {
+				font-family: var(--font-ui) !important;
+				padding: 0.6rem 0.85rem !important;
+				background: rgba(13, 17, 23, 0.9) !important;
+				border: 1px solid var(--border-light) !important;
+				border-radius: var(--radius-sm) !important;
+				color: var(--text-main) !important;
+				outline: none !important;
+				width: 100% !important;
+			}
+
+			div.wrapper input:focus {
+				border-color: var(--accent-primary) !important;
+			}
+
+			button.button {
+				font-family: var(--font-ui) !important;
+				font-size: 0.85rem !important;
+				font-weight: 600 !important;
+				font-style: normal !important;
+				border-radius: var(--radius-sm) !important;
+				background: var(--grad-primary) !important;
+				color: #ffffff !important;
+				width: 100% !important;
+				padding: 0.6rem 1rem !important;
+				box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+			}
+
+			button#remove-btn {
+				background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%) !important;
+				color: white !important;
+				box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
+			}
+
+			button#remove-settings {
+				background: #881337 !important;
+				color: white !important;
+			}
+
+			div#settings {
+				background: rgba(13, 17, 23, 0.95);
+				backdrop-filter: blur(20px);
+				border-right: 1px solid var(--border-light);
+			}
+
+			div.settings-container input {
+				background: rgba(9, 13, 22, 0.8);
+				border: 1px solid var(--border-light);
+				border-radius: var(--radius-sm);
+				color: var(--text-main);
+				padding: 0.5rem;
+				margin-top: 0.35rem;
+			}
+		</style>
+	</head>
+	
+	<body>
+
+		<!-- SVG Gradient Definition -->
+		<svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+			<defs>
+				<linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+					<stop offset="0%" stop-color="#818cf8" />
+					<stop offset="100%" stop-color="#3b82f6" />
+				</linearGradient>
+			</defs>
+		</svg>
+
+		<!-- Minimalist Floating Navigation Navbar -->
+		<div class="dsa-dock-wrapper">
+			<nav class="dsa-dock">
+				<a href="../index.html" class="dsa-dock-brand">
+					<svg class="logo-svg" viewBox="0 0 24 24">
+						<circle cx="12" cy="12" r="9" />
+						<path d="M12 7v5l3 3" />
+						<circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+					</svg>
+					<span>AlgoPulse</span>
+				</a>
+				<ul class="dsa-dock-links">
+					<li><a href="../index.html" class="dsa-dock-link">Hub</a></li>
+					<li><a href="../Sorting-Visualizer-Project/sort.html" class="dsa-dock-link">Sorting</a></li>
+					<li><a href="./index.html" class="dsa-dock-link active">Linked List</a></li>
+					<li><a href="../Binary-Tree-Visualization-master/index.html" class="dsa-dock-link">Binary Tree</a></li>
+					<li><a href="../visualising-stack-implementation-master/index.html" class="dsa-dock-link">Stack</a></li>
+					<li><a href="../Pathfinding-Visualiser-Project-master/index.html" class="dsa-dock-link">Binary Search</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<!-- Settings Sidebar -->
+		<div id="settings">
+			<div class="menu-header">
+				<div id="close-menu">
+					<i class="fas fa-times"></i>
+				</div>
+				<div><h2>Settings</h2></div>
+			</div>
+
+			<div class="settings-container">
+					<div>
+						<p>Node Animation Speed (ms):</p>
+						<input type="number" placeholder="Milliseconds" />
+					</div>
+		
+					<div>
+						<p>Pointer Animation Speed (ms):</p>
+						<input type="number" placeholder="Milliseconds" />
+					</div>
+
+					<div>
+						<p>Delete Animation Speed (ms):</p>
+						<input type="number" placeholder="Milliseconds" />
+					</div>
+
+					<div class="error-message">
+						<p id="settings-error"></p>
+					</div>
+
+					<div class="success">
+						<p id="succes"></p>
+					</div>
+		
+					<button id="save-settings" class="button">Save Settings</button>
+			</div>			
+		</div>
+
+		<!-- Header Banner -->
+		<div class="ll-header-banner">
+			<div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.5rem;">
+				<div id="settings-menu" style="cursor: pointer; font-size: 0.8rem; color: #818cf8; display: flex; align-items: center; gap: 0.4rem; background: rgba(79,70,229,0.1); padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid rgba(99,102,241,0.25);">
+					<i class="fas fa-cog"></i> <span>Settings</span>
+				</div>
+			</div>
+			<h2>Linked List Memory Architecture</h2>
+			<p>Traverse singly linked lists, insert nodes at arbitrary indices, and inspect pointer modifications.</p>
+		</div>
+
+		<main>
+			<section class="list" id="list"></section>
+
+			<section class="errors">
+				<div class="error-message" style="text-align: center;">
+					<p id="error"></p>
+				</div>
+			</section>
+
+			<!-- Operations Panel -->
+			<section class="operations">
+				<div class="wrapper">
+					<div>
+						<button class="button" id="set-btn">Set Value</button>
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data Value" />
+					</div>
+
+					<div>
+						<button class="button" id="insert-btn">Insert Node</button>
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data Value" />
+					</div>
+
+					<div>
+						<button class="button" id="add-btn">Append (Add)</button>
+						<input type="number" placeholder="Data Value" />
+					</div>
+
+					<div>
+						<div class="remove">
+							<button class="button" id="remove-btn">Remove Node</button>
+							<button class="button" id="remove-settings">
+								<i class="fas fa-cog"></i>
+							</button>
+						</div>
+
+						<button class="remove-option" id="remove-index-btn">
+							By Index
+						</button>
+						<button class="remove-option" id="remove-data-btn">
+							By Value
+						</button>
+
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data Value" />
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Multi-Column Professional Footer -->
+		<footer class="algopulse-footer">
+			<div class="footer-container">
+				<div class="footer-brand">
+					<div class="footer-brand-title">
+						<svg class="logo-svg" viewBox="0 0 24 24">
+							<circle cx="12" cy="12" r="9" />
+							<path d="M12 7v5l3 3" />
+							<circle cx="12" cy="7" r="1.5" fill="#818cf8" />
+						</svg>
+						<span>AlgoPulse</span>
+					</div>
+					<p class="footer-brand-desc">
+						An interactive execution environment designed for deep-dive visual analysis of data structures, algorithm complexities, and memory state transformations.
+					</p>
+				</div>
+
+				<div>
+					<h4 class="footer-col-title">Workspaces</h4>
+					<ul class="footer-links">
+						<li><a href="../Sorting-Visualizer-Project/sort.html">Sorting Visualizer</a></li>
+						<li><a href="../Pathfinding-Visualiser-Project-master/index.html">Binary Search</a></li>
+						<li><a href="./index.html">Linked List</a></li>
+						<li><a href="../Binary-Tree-Visualization-master/index.html">Binary Tree & BST</a></li>
+						<li><a href="../visualising-stack-implementation-master/index.html">Stack Operations</a></li>
+					</ul>
+				</div>
+
+				<div>
+					<h4 class="footer-col-title">Complexity Reference</h4>
+					<ul class="footer-links">
+						<li><a href="#">O(1) Constant Time</a></li>
+						<li><a href="#">O(log n) Logarithmic</a></li>
+						<li><a href="#">O(n) Linear Search</a></li>
+						<li><a href="#">O(n log n) Linearithmic</a></li>
+						<li><a href="#">O(n²) Quadratic Time</a></li>
+					</ul>
+				</div>
+
+				<div>
+					<h4 class="footer-col-title">Architecture</h4>
+					<ul class="footer-links">
+						<li><a href="#">HTML5 Canvas Engine</a></li>
+						<li><a href="#">D3.js Tree Layout API</a></li>
+						<li><a href="#">Vanilla JS DOM Timers</a></li>
+						<li><a href="#">WebAPI Async Event Loop</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<span>&copy; 2026 AlgoPulse Suite. All rights reserved.</span>
+				<span>Built with HTML5, CSS3, and JavaScript.</span>
+			</div>
+		</footer>
+
+		<script src="vendor/js/fontawesome.js"></script>
+		<script src="js/LinkedList.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/settings.js"></script>
+	</body>
+</html>
